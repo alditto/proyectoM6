@@ -92,6 +92,20 @@ export default {
                     console.log(response);
                 });
         },
+        getPaises(paisId) {
+            this.axios({
+                method: 'get',
+                url: this.api + '/paises?paisId=' + paisId
+            })
+                .then((response) => {
+                    this.paises = response.data;
+                    setTimeout(function () {
+                        var elems = document.querySelectorAll('select');
+                        var select = M.FormSelect.init(elems);
+                    });
+                    console.log(response);
+                });
+        },
         saveLibro() {
             this.axios({
                 method: 'patch',

@@ -1,0 +1,54 @@
+{
+    "libros": [
+    { 
+        "id": 1, 
+        "titulo": "Libro 1", 
+        "precio": 150, 
+        "categoriaId": 1, 
+        "paisId": 1 
+    },
+    {   
+        "id": 2, 
+        "titulo": "Libro 2", 
+        "precio": 200, 
+        "categoriaId": 2, 
+        "paisId": 2 
+    },
+    {   
+        "id": 3, 
+        "titulo": "Libro 3", 
+        "precio": 250, 
+        "categoriaId": 3, 
+        "paisId": 3 
+    }
+    ],
+
+    "categorias": [
+    { 
+        "id": 1, 
+        "nombre": "Educativo" 
+    },
+    { 
+        "id": 2, 
+        "nombre": "Ficcion" 
+    },
+    { 
+        "id": 3, 
+        "nombre": "Poesia" 
+    }
+    ],
+    "paises": [
+    { 
+        "id": 1, 
+        "nombre": "Bolivia" 
+    },
+    { 
+        "id": 2, 
+        "nombre": "Argentina" 
+    },
+    { 
+        "id": 3, 
+        "nombre": "Chile" 
+    }
+    ]
+  }

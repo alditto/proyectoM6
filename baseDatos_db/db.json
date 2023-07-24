@@ -32,8 +32,9 @@
       "titulo": "Libro 5",
       "precio": 500,
       "paisId": 1,
-      "categoriaId": 2,
-      "id": 5
+      "categoriaId": 0,
+      "id": 5,
+      "categoriasId": 1
     }
   ],
   "categorias": [

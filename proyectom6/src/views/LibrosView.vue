@@ -5,7 +5,7 @@
             <template v-slot:lista>
                 <search placeholder="Buscar Libros" @searchtext="searchFx($event)"></search>
                 <filter-group>
-                    <filter-item :items="categorias" label="Categorias"
+                    <filter-item :items="libros" label="libros"
                         @onfilter="onFilterFx('categoriaId', $event)"></filter-item>
                 </filter-group>
                 <table class="highlight responsive-table ">
@@ -22,8 +22,8 @@
                         <tr v-for="item in items">
                             <td>{{ item.titulo }}</td>
                             <td>{{ item.precio }}</td>
-                            <td>{{ item.categorias.nombre }}</td>
-                            <td>{{ item.paises.nombre }}</td>
+                            <td>{{ item.categoriaId }}</td>
+                            <td>{{ item.paisId }}</td>
                             <td>
                                 <router-link :to="'/libros/' + item.id"><i class="material-icons">crear</i></router-link>
 
@@ -83,7 +83,7 @@ import Search from '@/components/Search.vue'
 import FilterGroup from '@/components/FilterGroup.vue';
 import FilterItem from '@/components/FilterItem.vue';
 export default {
-    name: 'libreria',
+    name: 'libros',
     data() {
         const api = process.env.VUE_APP_API;
         return {
@@ -96,7 +96,7 @@ export default {
             payload: {
                 titulo: '',
                 precio: null,
-                paisesId: 0,
+                paisId: 0,
                 categoriaId: 0
             }
         }
@@ -111,10 +111,11 @@ export default {
             this.getItems();
         },
         
+        
         getItems() {
             this.axios({
                 method: 'get',
-                url: this.api + '/libros?_expand=categorias'+this.toSearch+this.toFilter
+                url: this.api + '/libros?_expand=categoria&paises'+this.toSearch+this.toFilter
             })
                 .then((response) => {
                     this.items = response.data;
@@ -123,13 +124,13 @@ export default {
                 .catch((error) => { console.log(error) })
                 .finally(() => { });
         },
-        getPaises() {
+        getPaises(paisId) {
             this.axios({
                 method: 'get',
-                url: this.api + '/paises'
+                url: this.api + '/paises?paisesId=' + paisId
             })
                 .then((response) => {
-                    this.states = response.data;
+                    this.paises = response.data;
                     setTimeout(function () {
                         var elems = document.querySelectorAll('select');
                         var select = M.FormSelect.init(elems);
@@ -137,24 +138,10 @@ export default {
                     console.log(response);
                 });
         },
-        getPaises(paisesId) {
+        getCategorias(categoriaId) {
             this.axios({
                 method: 'get',
-                url: this.api + '/paises?paisesId=' + paisesId
-            })
-                .then((response) => {
-                    this.cities = response.data;
-                    setTimeout(function () {
-                        var elems = document.querySelectorAll('select');
-                        var select = M.FormSelect.init(elems);
-                    });
-                    console.log(response);
-                });
-        },
-        getCategorias() {
-            this.axios({
-                method: 'get',
-                url: this.api + '/categorias'
+                url: this.api + '/categorias?categoriasId=' + categoriaId
             })
                 .then((response) => {
                     this.categorias = response.data;
@@ -165,21 +152,7 @@ export default {
                     console.log(response);
                 });
         },
-        getCategorias(categoriasId) {
-            this.axios({
-                method: 'get',
-                url: this.api + '/categorias?categoriasId=' + categoriasId
-            })
-                .then((response) => {
-                    this.categorias = response.data;
-                    setTimeout(function () {
-                        var elems = document.querySelectorAll('select');
-                        var select = M.FormSelect.init(elems);
-                    });
-                    console.log(response);
-                });
-        },
-        saveLibro() {
+        saveLibros() {
 
             this.axios({
                 method: 'post',
@@ -190,8 +163,8 @@ export default {
                     this.payload = {
                         titulo: '',
                         precio: null,
-                        categoriaId: 0,
-                        paisesId: 0,
+                        categoriasId: 0,
+                        paisesId:0
                     };
                     setTimeout(function () {
                         var elems = document.querySelectorAll('select');

@@ -25,8 +25,27 @@ const routes = [
     name: 'librosedit',
     component: () => import(/* webpackChunkName: "librosedit" */ '../views/LibrosEditView.vue')
   },
+  {
+    path: '/categorias',
+    name: 'categorias',
+    component: () => import(/* webpackChunkName: "categorias" */ '../views/CategoriasView.vue')
+  },
+  {
+    path: '/categorias/:id',
+    name: 'categoriasedit',
+    component: () => import(/* webpackChunkName: "categoriasedit" */ '../views/CategoriasEditView.vue')
+  },
+{
+  path: '/paises',
+  name: 'paises',
+  component: () => import(/* webpackChunkName: "paises" */ '../views/PaisesView.vue')
+},
+{
+  path: '/paises/:id',
+  name: 'paisesedit',
+  component: () => import(/* webpackChunkName: "paisesedit" */ '../views/PaisesEditView.vue')
+},
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes

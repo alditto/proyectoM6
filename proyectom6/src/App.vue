@@ -6,8 +6,8 @@
       <ul class="right hide-on-med-and-down">
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/libros">Libros</router-link></li>
-        <li><router-link to="/">Categorias</router-link></li>
-        <li><router-link to="/">Paises</router-link></li>
+        <li><router-link to="/categorias">Categorias</router-link></li>
+        <li><router-link to="/paises">Paises</router-link></li>
         </ul>
     </div>
   </nav>
@@ -15,8 +15,8 @@
   <ul class="sidenav" id="mobile-demo">
     <li><router-link to="/">Home</router-link></li>
     <li><router-link to="/libros">Libros</router-link></li>
-    <li><router-link to="/">Categorias</router-link></li>
-    <li><router-link to="/">Paises</router-link></li>
+    <li><router-link to="/categoria">Categorias</router-link></li>
+    <li><router-link to="/paises">Paises</router-link></li>
    
     
   </ul>

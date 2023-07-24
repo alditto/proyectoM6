@@ -18,7 +18,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select v-model="payload.categoriasId" >
+                        <select v-model="payload.categoriaId" >
                             <option value="" disabled selected>Elija una categoria</option>
                             <option v-for="(value, key) in categorias" :key="key" :value="value.id">{{ value.nombre }}
                             </option>
@@ -78,10 +78,10 @@ export default {
                     console.log(response);
                 });
         },
-        getCategorias() {
+        getCategorias(categoriaId) {
             this.axios({
                 method: 'get',
-                url: this.api + '/categorias'
+                url: this.api + '/categorias?categoriaId=' + categoriaId
             })
                 .then((response) => {
                     this.categorias = response.data;

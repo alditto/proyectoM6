@@ -26,7 +26,7 @@
 <script>
 
 export default {
-    name: 'Libros',
+    name: 'Categorias',
     data() {
         const api = process.env.VUE_APP_API;
         return {
@@ -70,11 +70,11 @@ export default {
         saveCategoria() {
             this.axios({
                 method: 'patch',
-                url: this.api + '/categoria/'+this.$route.params.id,
+                url: this.api + '/categorias/'+this.$route.params.id,
                 data: this.payload
             })
                 .then((response) => {
-                   this.$router.push('/categoria');
+                   this.$router.push('/categorias');
 
                     console.log(response);
                 });

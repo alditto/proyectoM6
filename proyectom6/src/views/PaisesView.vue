@@ -6,7 +6,7 @@
                 <search placeholder="Buscar paises" @searchtext="searchFx($event)"></search>
                 <filter-group>
                     <filter-item :items="paises" label="Paises"
-                        @onfilter="onFilterFx('paisesId', $event)"></filter-item>
+                        @onfilter="onFilterFx('paisId', $event)"></filter-item>
                 </filter-group>
                 <table class="highlight responsive-table card">
                     <thead>

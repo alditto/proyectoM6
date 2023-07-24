@@ -5,8 +5,8 @@
             <template v-slot:lista>
                 <search placeholder="Buscar Libros" @searchtext="searchFx($event)"></search>
                 <filter-group>
-                    <filter-item :items="libros" label="libros"
-                        @onfilter="onFilterFx('categoriaId', $event)"></filter-item>
+                    <filter-item :items="id" label="libros"
+                        @onfilter="onFilterFx('titulo', $event)"></filter-item>
                 </filter-group>
                 <table class="highlight responsive-table ">
                     <thead>
@@ -22,10 +22,10 @@
                         <tr v-for="item in items">
                             <td>{{ item.titulo }}</td>
                             <td>{{ item.precio }}</td>
-                            <td>{{ item.categoriaId }}</td>
-                            <td>{{ item.paisId }}</td>
+                            <td>{{ item.categoriaId}}</td>
+                            <td>{{ item.paisId}}</td>
                             <td>
-                                <router-link :to="'/libros/' + item.id"><i class="material-icons">crear</i></router-link>
+                                <router-link :to="'/libros/' + item.id"><i class="material-icons">create</i></router-link>
 
                                 <i class="material-icons" style="color:red"
                                     @click="eliminarItem(item.id)">delete_forever</i>
@@ -38,11 +38,11 @@
             <template v-slot:nuevo>
                 <div class="row card p-2" style="max-width: 650px;">
                     <h6>Formulario nuevo Libro</h6>
-                    <form class="col s12" @submit.prevent="saveLibro()">
+                    <form class="col s12" @submit.prevent="saveLibros()">
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="name" type="text" class="validate" v-model="payload.nombre">
-                                <label for="name"> Titulo</label>
+                                <input id="titulo" type="text" class="validate" v-model="payload.titulo">
+                                <label for="titulo"> Titulo</label>
                             </div>
                         </div>
                         <div class="row">
@@ -51,9 +51,19 @@
                                 <label for="precio"> Precio</label>
                             </div>
                         </div>
+                        <div class="row" v-if="categorias.length > 0">
+                            <div class="input-field col s12">
+                                <select v-model="payload.categoriaId">
+                                    <option value="0" disabled selected>Elija una Categoria</option>
+                                    <option v-for="(value, key) in categorias" :key="key" :value="value.id">{{ value.nombre }}
+                                    </option>
+                                </select>
+                                <label>Pais</label>
+                            </div>
+                        </div>
                         <div class="row" v-if="paises.length > 0">
                             <div class="input-field col s12">
-                                <select v-model="payload.paisesId">
+                                <select v-model="payload.paisId">
                                     <option value="0" disabled selected>Elija un Pais</option>
                                     <option v-for="(value, key) in paises" :key="key" :value="value.id">{{ value.nombre }}
                                     </option>
@@ -64,7 +74,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                                    <i class="material-icons right">Enviar</i>
+                                    <i class="material-icons right">enviar</i>
                                 </button>
                             </div>
                         </div>
@@ -115,7 +125,7 @@ export default {
         getItems() {
             this.axios({
                 method: 'get',
-                url: this.api + '/libros?_expand=categoria&paises'+this.toSearch+this.toFilter
+                url: this.api + '/libros?_expand=categoria&pais'+this.toSearch+this.toFilter
             })
                 .then((response) => {
                     this.items = response.data;
@@ -127,7 +137,7 @@ export default {
         getPaises(paisId) {
             this.axios({
                 method: 'get',
-                url: this.api + '/paises?paisesId=' + paisId
+                url: this.api + '/paises?paisId=' + paisId
             })
                 .then((response) => {
                     this.paises = response.data;
@@ -141,10 +151,10 @@ export default {
         getCategorias(categoriaId) {
             this.axios({
                 method: 'get',
-                url: this.api + '/categorias?categoriasId=' + categoriaId
+                url: this.api + '/categorias?categoriaId=' + categoriaId
             })
                 .then((response) => {
-                    this.categorias = response.data;
+                    this.categoria = response.data;
                     setTimeout(function () {
                         var elems = document.querySelectorAll('select');
                         var select = M.FormSelect.init(elems);
@@ -163,8 +173,8 @@ export default {
                     this.payload = {
                         titulo: '',
                         precio: null,
-                        categoriasId: 0,
-                        paisesId:0
+                        categoriaId: 0,
+                        paisId:0
                     };
                     setTimeout(function () {
                         var elems = document.querySelectorAll('select');
@@ -200,8 +210,8 @@ export default {
     },
     mounted() {
         this.getItems();
-        this.getPaises();
         this.getCategorias();
+        this.getPaises();
     },
     components: {
         Tabs,Search,FilterGroup,FilterItem
